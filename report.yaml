@@ -1,0 +1,45 @@
+company:
+  name: CourseRaider 
+  logo: logo.jpeg 
+product_hmw: How might we create a better experience for university students to pick classes. 
+tags:
+  - Education 
+  - Tech
+  - Social 
+
+product_narrative: |
+  How many of you have regrets about taking a bad elective before? It is frustrating and draining for students to waste time on bad classes especially when it can be avoided. We view this as a lack of transparency with the university course review system. That is why we want to create CourseRaider, a platform for students to share course reviews with other students that are similar to you.
+team:
+  picture: team.jpg
+  roster:
+  - name: Takuya Shimmen 
+    email: ts772@cornell.edu
+    picture: takuya.jpeg
+    program: MBA 
+  - name: Sean Hsu 
+    email: yh742@cornell.edu
+    picture: sean.jpeg
+    program: MBA
+  - name: Gaurav Chaturvedi 
+    email: gkc24@cornell.edu
+    picture: gaurav.jpeg
+    program: MBA
+  - name: Joe Gelber 
+    email: jeg357@cornell.edu
+    picture: joe.jpeg
+    program: MBA
+  - name: Feston Kastrati 
+    email: fk257@cornell.edu
+    picture: feston.jpg
+    program: CS 
+
+
+assets:
+- title: Sprint 1
+  url: 
+- title: Sprint 2
+  url: 
+- title: Sprint 3
+  url: 
+- title: Final
+  url: 
