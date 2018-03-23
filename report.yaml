@@ -3,9 +3,9 @@ company:
   logo: logo.jpeg 
 product_hmw: How might we use technology to create a better class experience for professors and students. 
 tags:
-  - Education 
-  - Tech 
-  - Social 
+  - Education/ EdTech
+  - Social Impact 
+  - Services 
 
 product_narrative: |
   Course Raider is a simplified teaching tool platform to solve the gap between lecture content and student interest/skills using six sigma practices of continuous improvement for every lecture
