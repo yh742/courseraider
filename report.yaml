@@ -1,45 +1,45 @@
 company:
-  name: CourseRaider 
-  logo: logo.jpeg 
-product_hmw: How might we use technology to create a better class experience for professors and students. 
+  name: CourseRaider
+  logo: logo.jpeg
+product_hmw: How might we use technology to create a better class experience for professors and students.
 tags:
+  - education--edtech
+  - Productivity
   - Education/ EdTech
-  - Social Impact 
-  - Services 
 
 product_narrative: |
   Course Raider is a simplified teaching tool platform to solve the gap between lecture content and student interest/skills using six sigma practices of continuous improvement for every lecture
 team:
   picture: team.jpg
   roster:
-  - name: Takuya Shimmen 
+  - name: Takuya Shimmen
     email: ts772@cornell.edu
     picture: takuya.jpeg
-    program: MBA 
-  - name: Sean Hsu 
+    program: MBA
+  - name: Sean Hsu
     email: yh742@cornell.edu
     picture: sean.jpeg
     program: MBA
-  - name: Gaurav Chaturvedi 
+  - name: Gaurav Chaturvedi
     email: gkc24@cornell.edu
     picture: gaurav.png
     program: MBA
-  - name: Joe Gelber 
+  - name: Joe Gelber
     email: jeg357@cornell.edu
     picture: joe.jpeg
     program: MBA
-  - name: Feston Kastrati 
+  - name: Feston Kastrati
     email: fk257@cornell.edu
     picture: feston.jpg
-    program: CS 
+    program: CS
 
 
 assets:
 - title: Sprint 1
-  url: https://docs.google.com/presentation/d/1Vxs7BECDikIirtx2rCtcAU3pq8Mn3yUNKsITIUcIyHA/edit?usp=sharing 
+  url: https://docs.google.com/presentation/d/1Vxs7BECDikIirtx2rCtcAU3pq8Mn3yUNKsITIUcIyHA/edit?usp=sharing
 - title: Sprint 2
-  url: https://docs.google.com/presentation/d/1fhfGGHvNen9qWE-3x8EtxMew6I502GjkTYjlFJFseh4/edit?usp=sharing 
+  url: https://docs.google.com/presentation/d/1fhfGGHvNen9qWE-3x8EtxMew6I502GjkTYjlFJFseh4/edit?usp=sharing
 - title: Sprint 3
-  url: 
+  url:
 - title: Final
-  url: 
+  url:
