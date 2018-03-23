@@ -1,14 +1,14 @@
 company:
   name: CourseRaider 
   logo: logo.jpeg 
-product_hmw: How might we create a better experience for university students to pick classes. 
+product_hmw: How might we use technology to create a better class experience for professors and students. 
 tags:
   - Education 
-  - Tech
+  - Tech 
   - Social 
 
 product_narrative: |
-  How many of you have regrets about taking a bad elective before? It is frustrating and draining for students to waste time on bad classes especially when it can be avoided. We view this as a lack of transparency with the university course review system. That is why we want to create CourseRaider, a platform for students to share course reviews with other students that are similar to you.
+  Course Raider is a simplified teaching tool platform to solve the gap between lecture content and student interest/skills using six sigma practices of continuous improvement for every lecture
 team:
   picture: team.jpg
   roster:
@@ -38,7 +38,7 @@ assets:
 - title: Sprint 1
   url: https://docs.google.com/presentation/d/1Vxs7BECDikIirtx2rCtcAU3pq8Mn3yUNKsITIUcIyHA/edit?usp=sharing 
 - title: Sprint 2
-  url: 
+  url: https://docs.google.com/presentation/d/1fhfGGHvNen9qWE-3x8EtxMew6I502GjkTYjlFJFseh4/edit?usp=sharing 
 - title: Sprint 3
   url: 
 - title: Final
