@@ -2,17 +2,21 @@ class Config(object):
     pass
 
 
-class DevelopmentConfig(object):
+class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_ECHO = True
 
 
-class ProductionConfig(object):
+class ProductionConfig(Config):
     DEBUG = False
 
+
+class TestingConfig(Config):
+    TESTING = True
 
 app_config = {
     'development': DevelopmentConfig,
     'production': ProductionConfig,
+    'testing':TestingConfig,
 }
 
