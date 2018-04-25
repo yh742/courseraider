@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+      <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <title>{{ title }}</title>
+  </head>
+  <body>
+
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 id="header" class="display-2">{{ title }}</h1>
+        <p class="lead">{{ description }}</p>
+      </div>
+    </div>
+
+    <form id="survey" method="post" action="/api/v1/survey/submit/{{ cls_id }}">
+
+      {% for prop in props %}
+
+      <div class="card">
+        <h5 class="card-header">{{ prop }}</h5>
+        <div class="card-body">
+          <!--h5 class="card-title"></h5-->
+          <p class="card-text">{{ props[prop]['title'] }}</p>
+              {% if props[prop]['widget'] == 'radio' %}
+                <div id="radioContainer">
+                  <span class="left-label">Low</span>
+                  {% for name in props[prop]['enum'] %}
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio"
+                             name={{ 'id-' + props[prop]['id'] }} id={{ 'inlineRadio' + name }} value={{ name }} required>
+                      <label class="form-check-label" for="inlineRadio1">{{ name }}</label>
+                    </div>
+                  {% endfor %}
+                  <span class="right-label">High</span>
+                </div>
+              {% else %}
+                  <div class="form-group">
+                    <textarea class="form-control" form="survey" name={{ 'id-' + props[prop]['id'] }} rows="3"></textarea>
+                  </div>
+              {% endif %}
+            </div>
+        </div>
+      </div>
+
+      {% endfor %}
+      <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Congrats</h5>
+        <p class="card-text">Thanks for completing the form!</p>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+      </div>
+    </form>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function(){
+        console.log('asdfdsf');
+        $('.jumbotron').slideDown(1000);
+      });
+    </script>
+  </body>
+</html>

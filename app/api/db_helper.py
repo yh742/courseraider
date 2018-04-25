@@ -3,32 +3,71 @@ import datetime
 from app import logger, db
 from ..models import Class, Performance, Question
 
-class Db2json(object):
 
-    def get_question(self, cls_id):
+def activate(cls_id):
 
-        cls = Class.query.get(cls_id)
-        if cls == None:
-            return None
-        data = {}
-        data['class_id'] = cls_id
-        data['ui_schema'] = {}
-        data['form_schema'] = {}
-        data['form_schema']['title'] = cls.title
-        data['form_schema']['description'] = cls.description
-        data['form_schema']['type'] = 'object'
-        data['form_schema']['properties'] = {}
-        for question in cls.questions:
-            key = 'Question' + str(question.qnum)
-            data['ui_schema'][key] = {}
-            data['ui_schema'][key]['ui:widget'] = question.widget
-            data['form_schema']['properties'][key] = {}
-            data['form_schema']['properties'][key]['type'] = question.jtype
-            data['form_schema']['properties'][key]['title'] = question.title
-            if not question.extra == None:
-                if ',' in question.extra:
-                    data['form_schema']['properties'][key]['enum'] = question.extra.split(',')
-        return data
+    cls = Class.query.get(cls_id)
+    if cls is None:
+        return False
+    cls.active = True
+    db.session.add(cls)
+    db.session.commit()
+    return True
+
+
+def deactivate(cls_id):
+
+    cls = Class.query.get(cls_id)
+    if cls is None:
+        return False
+    cls.active = False
+    db.session.add(cls)
+    db.session.commit()
+    return True
+
+
+def insert_performance(data):
+
+    if data is None:
+        return None
+    for key in data:
+        q = Question.query.get(int(key.replace('id-','')))
+        p = Performance(score=str(data[key]))
+        q.performances.append(p)
+        db.session.commit()
+
+
+def check_activated(cls_id):
+
+    obj = Class.query.get(cls_id)
+    return obj.active
+
+
+def get_question(cls_id):
+
+    cls = Class.query.get(cls_id)
+    if cls is None:
+        return None
+    data = dict()
+    data['class_id'] = cls_id
+    data['ui_schema'] = {}
+    data['form_schema'] = {}
+    data['form_schema']['title'] = cls.title
+    data['form_schema']['description'] = cls.description
+    data['form_schema']['type'] = 'object'
+    data['form_schema']['properties'] = {}
+    for question in cls.questions:
+        key = 'Question' + str(question.qnum)
+        data['ui_schema'][key] = {}
+        data['ui_schema'][key]['ui:widget'] = question.widget
+        data['form_schema']['properties'][key] = {}
+        data['form_schema']['properties'][key]['type'] = question.jtype
+        data['form_schema']['properties'][key]['title'] = question.title
+        data['form_schema']['properties'][key]['id'] = str(question.id)
+        if question.extra is not None:
+            if ',' in question.extra:
+                data['form_schema']['properties'][key]['enum'] = question.extra.split(',')
+    return data
 
 
 class Json2db(object):
@@ -46,7 +85,7 @@ class Json2db(object):
     def insert_cls(self):
 
         # delete any previous entries
-        if not Class.query.get(self.class_id) == None:
+        if not Class.query.get(self.class_id) is None:
             logger.info("inserting class: class id already exists")
             query_obj = Class.query.get(self.class_id)
             db.session.delete(query_obj)
@@ -56,6 +95,7 @@ class Json2db(object):
         cls = Class(id=self.class_id, date=self.time, title=self.title, description=self.description)
         db.session.add(cls)
         db.session.commit()
+        return self
 
     def insert_question(self):
 
@@ -73,7 +113,6 @@ class Json2db(object):
             key = 'Question' + str(idx)
             if key not in self.data['ui_schema']:
                 break
-            qnum = idx
             widget = self.data['ui_schema'][key]['ui:widget']
             title = self.data['form_schema']['properties'][key]['title']
             jtype = self.data['form_schema']['properties'][key]['type']
@@ -82,9 +121,11 @@ class Json2db(object):
                 else ""
             question = Question(qnum=idx, widget=widget, jtype=jtype, title=title, extra=extra)
             Class.query.get(self.class_id).questions.append(question)
-            db.session.add(question)
+            #db.session.add(question)
             db.session.commit()
             idx += 1
+        return self
+
 
 
 

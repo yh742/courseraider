@@ -11,6 +11,7 @@ class Class(db.Model):
     date = db.Column(db.DateTime, index=True, nullable=False)
     title = db.Column(db.String(256), index=True)
     description = db.Column(db.String(256))
+    active = db.Column(db.Boolean, default=False, unique=False)
     questions = db.relationship('Question', backref='class', lazy='dynamic')
 
     def __repr__(self):
@@ -24,12 +25,11 @@ class Performance(db.Model):
 
     __tablename__ = 'performances'
     id = db.Column(db.Integer, primary_key=True)
-    score = db.column(db.Integer)
+    score = db.Column(db.String(1028))
     question_id = db.Column(db.Integer, db.ForeignKey('questions.id'))
 
     def __repr__(self):
         return '<Performance: {0},{1},{2}>'.format(self.id, self.qnum, self.score)
-
 
 
 class Question(db.Model):
