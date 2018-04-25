@@ -62,7 +62,6 @@ class TestApi(TestBase):
         self.assertEqual(Class.query.count(), 1)
         self.assertEqual(Question.query.count(), 2)
 
-
     def test_question_post_twice(self):
         target_url = url_for('api.add_questions')
         response = self.client.post(target_url,
@@ -73,6 +72,29 @@ class TestApi(TestBase):
         self.assertEqual(Class.query.count(), 1)
         self.assertEqual(Question.query.count(), 2)
 
+    def test_question_get(self):
+        # post questions
+        target_url = url_for('api.add_questions')
+        data = json.dumps(TestApi.data, skipkeys=True)
+        response = self.client.post(target_url,
+            content_type='application/json', data=data)
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(Class.query.count(), 1)
+        self.assertEqual(Question.query.count(), 2)
+
+        # get questions
+        target_url = url_for('api.get_questions', cls_id=TestApi.data['class_id'])
+        response = self.client.get(target_url)
+        self.assertEqual(response.status_code, 200)
+        self.maxDiff = 2000
+        self.assertEqual(response.data.decode('utf-8'), data)
+
+    def test_question_get_missing(self):
+
+        # get questions
+        target_url = url_for('api.get_questions', cls_id=1)
+        response = self.client.get(target_url)
+        self.assertEqual(response.status_code, 400)
 
 if __name__ == '__main__':
     unittest.main()

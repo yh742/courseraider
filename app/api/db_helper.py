@@ -3,6 +3,34 @@ import datetime
 from app import logger, db
 from ..models import Class, Performance, Question
 
+class Db2json(object):
+
+    def get_question(self, cls_id):
+
+        cls = Class.query.get(cls_id)
+        if cls == None:
+            return None
+        data = {}
+        data['class_id'] = cls_id
+        data['ui_schema'] = {}
+        data['form_schema'] = {}
+        data['form_schema']['title'] = cls.title
+        data['form_schema']['description'] = cls.description
+        data['form_schema']['type'] = 'object'
+        data['form_schema']['properties'] = {}
+        for question in cls.questions:
+            key = 'Question' + str(question.qnum)
+            data['ui_schema'][key] = {}
+            data['ui_schema'][key]['ui:widget'] = question.widget
+            data['form_schema']['properties'][key] = {}
+            data['form_schema']['properties'][key]['type'] = question.jtype
+            data['form_schema']['properties'][key]['title'] = question.title
+            if not question.extra == None:
+                if ',' in question.extra:
+                    data['form_schema']['properties'][key]['enum'] = question.extra.split(',')
+        return data
+
+
 class Json2db(object):
 
     def __init__(self, json_data):
