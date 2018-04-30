@@ -2,7 +2,8 @@ import sys, os
 from flask import request, jsonify, url_for, render_template, redirect
 
 from . import api
-from .db_helper import Json2db, activate as act, deactivate as deact, get_question, insert_performance, check_activated
+from .db_helper import Json2db, activate as act, deactivate as deact, get_question, \
+    insert_performance, check_activated, get_performance
 from .bitly import BitlyApi
 from instance.config import HOSTNAME
 
@@ -41,9 +42,9 @@ def add_questions():
         jdb.insert_cls().insert_question()
     except KeyError:
         return jsonify({'id': jdb.class_id, 'error': 'key error'}), 400
-    except:
+    except Exception as e:
         exc = sys.exc_info()
-        return jsonify({'id': jdb.class_id, 'error': str(exc[0]) + ': ' + str(exc[1])}), 400
+        return jsonify({'id': jdb.class_id, 'error': str(e.args[0])}), 400
     return jsonify({'id': jdb.class_id, 'error': None}), 201
 
 
@@ -57,9 +58,8 @@ def get_questions(cls_id):
         data = get_question(cls_id)
         if data is None:
             return jsonify({'id': cls_id, 'error': 'questions for class id does not exist'}), 400
-    except:
-        exc = sys.exc_info()
-        return jsonify({'id': cls_id, 'error': str(exc[0]) + ': ' + str(exc[1])}), 400
+    except Exception as e:
+        return jsonify({'id': cls_id, 'error': str(e.args[0])}), 400
     return jsonify(data), 200
 
 
@@ -77,7 +77,7 @@ def activate(cls_id):
         link = bitly.shorten(HOSTNAME + url)
         if link is None:
             return jsonify({'id': cls_id, 'error': 'bitly link could not be generated'}), 400
-        return jsonify({'id': cls_id, 'bitly_link': link,'error': ''}), 200
+        return jsonify({'id': cls_id, 'bitly_link': link, 'error': ''}), 200
         # TODO generate 2d barcode
 
 
@@ -92,5 +92,15 @@ def deactivate(cls_id):
         return jsonify({'id': cls_id, 'error': ''}), 200
 
 
-    
-
+@api.route('/v1/performance/<int:cls_id>', methods=['GET'])
+def performance(cls_id):
+    """
+    Handle get requests to get performance for specific class
+    """
+    try:
+        res = get_performance(cls_id)
+        if not res:
+            raise Exception('class id does not exist')
+        return jsonify(res), 200
+    except Exception as e:
+        return jsonify({'id': cls_id, 'error': str(e.args[0])}), 400

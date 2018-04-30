@@ -1,4 +1,5 @@
 import datetime
+from collections import Counter
 
 from app import logger, db
 from ..models import Class, Performance, Question
@@ -35,6 +36,28 @@ def insert_performance(data):
         p = Performance(score=str(data[key]))
         q.performances.append(p)
         db.session.commit()
+
+
+def get_performance(cls_id):
+
+    cls = Class.query.get(cls_id)
+    if cls is None:
+        return None
+    data = dict()
+    data['class_id'] = cls_id
+    for question in cls.questions:
+        key = 'question' + str(question.qnum)
+        data[key] = dict()
+        if question.widget == 'radio':
+            scores = [int(x.score) for x in question.performances]
+            avg = sum(scores) / float(len(scores))
+            dist = dict(Counter(scores))
+            data[key]['scores'] = scores
+            data[key]['avg'] = avg
+            data[key]['dist'] = dist
+        elif question.widget == 'textarea':
+            data[key]['text'] = [x.score for x in question.performances]
+    return data
 
 
 def check_activated(cls_id):
