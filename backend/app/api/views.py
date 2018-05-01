@@ -18,7 +18,7 @@ def show_survey(cls_id):
     properties = data['form_schema']['properties']
     for key in data['ui_schema']:
         properties[key]['widget'] = data['ui_schema'][key]['ui:widget']
-    return render_template('survey.html', cls_id=cls_id, title=title, description=description, props=properties)
+    return render_template('survey.html', cls_id=cls_id, title=title, description=description, props=properties, keys=sorted(properties))
 
 
 @api.route('/v1/survey/submit/<int:cls_id>', methods=['GET', 'POST'])
