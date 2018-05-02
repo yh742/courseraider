@@ -16,6 +16,7 @@ _mailinglist
 docs/_build/
 *.log*
 *.pid
+mock/
 
 # Coverage reports
 htmlcov/

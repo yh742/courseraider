@@ -74,6 +74,13 @@ class TestApi(TestBase):
         self.assertEqual(Class.query.count(), 1)
         self.assertEqual(Question.query.count(), 2)
 
+    def test_questions_delete(self):
+        self.insertFake()
+        target_url = url_for('api.delete_questions', cls_id=TestApi.data['class_id'])
+        response = self.client.get(target_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Class.query.count(), 0)
+
     def test_question_get(self):
         self.insertFake()
         # compare with this copy

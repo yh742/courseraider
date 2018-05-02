@@ -1,9 +1,9 @@
-import sys, os
-from flask import request, jsonify, url_for, render_template, redirect
+import sys, os, qrcode, io
+from flask import request, jsonify, url_for, render_template, redirect, send_file
 
 from . import api
 from .db_helper import Json2db, activate as act, deactivate as deact, get_question, \
-    insert_performance, check_activated, get_performance
+    insert_performance, check_activated, get_performance, delete_question
 from .bitly import BitlyApi
 from instance.config import HOSTNAME
 
@@ -63,6 +63,21 @@ def get_questions(cls_id):
     return jsonify(data), 200
 
 
+@api.route('/v1/questions/delete/<int:cls_id>', methods=['GET'])
+def delete_questions(cls_id):
+    """
+    Deletes based on class id
+    """
+    try:
+        res = delete_question(cls_id)
+        if res:
+            return jsonify({'id': cls_id, 'error': ''}), 200
+        else:
+            return jsonify({'id': cls_id, 'error': 'questions for class id does not exist'}), 400
+    except Exception as e:
+        return jsonify({'id': cls_id, 'error': str(e.args[0])}), 400
+
+
 @api.route('/v1/questions/activate/<int:cls_id>', methods=['GET'])
 def activate(cls_id):
     """
@@ -104,3 +119,16 @@ def performance(cls_id):
         return jsonify(res), 200
     except Exception as e:
         return jsonify({'id': cls_id, 'error': str(e.args[0])}), 400
+
+
+@api.route('/v1/questions/qrcode', methods=['GET'])
+def get_qrcode():
+    link = request.args.get('url')
+    if link is None:
+        return jsonify({'error': 'query parameter must include url'})
+    img = qrcode.make(link)
+    img_io = io.BytesIO()
+    img.save(img_io, 'PNG')
+    img_io.seek(0)
+    return send_file(img_io, mimetype='image/png')
+

@@ -27,6 +27,16 @@ def deactivate(cls_id):
     return True
 
 
+def delete_question(cls_id):
+
+    cls = Class.query.get(cls_id)
+    if cls is None:
+        return False
+    db.session.delete(cls)
+    db.session.commit()
+    return True
+
+
 def insert_performance(data):
 
     if data is None:
