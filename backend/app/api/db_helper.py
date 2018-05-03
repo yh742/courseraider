@@ -32,6 +32,10 @@ def delete_question(cls_id):
     cls = Class.query.get(cls_id)
     if cls is None:
         return False
+    for question in cls.questions:
+        for perf in question.performances:
+            db.session.delete(perf)
+        db.session.delete(question)
     db.session.delete(cls)
     db.session.commit()
     return True
