@@ -3,7 +3,7 @@ from flask import request, jsonify, url_for, render_template, redirect, send_fil
 
 from . import api
 from .db_helper import Json2db, activate as act, deactivate as deact, get_question, \
-    insert_performance, check_activated, get_performance, delete_question
+    insert_performance, check_activated, get_performance, delete_question, get_all_performance
 from .bitly import BitlyApi
 from instance.config import HOSTNAME
 
@@ -119,6 +119,17 @@ def performance(cls_id):
         return jsonify(res), 200
     except Exception as e:
         return jsonify({'id': cls_id, 'error': str(e.args[0])}), 400
+
+
+@api.route('/v1/performance/all', methods=['GET'])
+def performances_all():
+    """
+    Handle get requests to get all the performances
+    """
+    try:
+        return jsonify(get_all_performance()), 200
+    except Exception as e:
+        return jsonify({'id': '', 'error': str(e.args[0])}), 400
 
 
 @api.route('/v1/questions/qrcode', methods=['GET'])

@@ -142,5 +142,20 @@ class TestApi(TestBase):
         response = self.client.get(target_url)
         self.assertEqual(response.status_code, 200)
 
+    def test_get_performances(self):
+
+        self.insertFake()
+        target_url = url_for('api.submit_survey', cls_id=TestApi.data['class_id'])
+        with open('sentences.txt') as f:
+            for line in f.readlines():
+                data = dict()
+                data['id-1'] = random.randint(1,5)
+                data['id-2'] = line
+                response = self.client.post(target_url, data=data)
+                self.assertEqual(response.status_code, 200)
+        target_url = url_for('api.performances_all')
+        response = self.client.get(target_url)
+        self.assertEqual(response.status_code, 200)
+
 if __name__ == '__main__':
     unittest.main()

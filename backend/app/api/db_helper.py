@@ -52,6 +52,14 @@ def insert_performance(data):
         db.session.commit()
 
 
+def get_all_performance():
+
+    data = {}
+    data['classes'] = []
+    for cls in Class.query.all():
+        data['classes'].append(get_performance(cls.id))
+    return data
+
 def get_performance(cls_id):
 
     cls = Class.query.get(cls_id)
