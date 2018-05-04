@@ -92,6 +92,15 @@ class TestApi(TestBase):
         self.maxDiff = 2000
         self.assertEqual(response.data, data)
 
+    def test_question_all_get(self):
+        self.insertFake()
+        TestApi.data['class_id'] = 11
+        self.insertFake()
+        # get questions
+        target_url = url_for('api.questions_all')
+        response = self.client.get(target_url)
+        self.assertEqual(response.status_code, 200)
+
     def test_question_get_missing(self):
         self.insertFake()
         # get questions from a missing class id
@@ -142,7 +151,7 @@ class TestApi(TestBase):
         response = self.client.get(target_url)
         self.assertEqual(response.status_code, 200)
 
-    def test_get_performances(self):
+    def test_get_all_performances(self):
 
         self.insertFake()
         target_url = url_for('api.submit_survey', cls_id=TestApi.data['class_id'])

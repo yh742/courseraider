@@ -3,7 +3,7 @@ from flask import request, jsonify, url_for, render_template, redirect, send_fil
 
 from . import api
 from .db_helper import Json2db, activate as act, deactivate as deact, get_question, \
-    insert_performance, check_activated, get_performance, delete_question, get_all_performance
+    insert_performance, check_activated, get_performance, delete_question, get_all_performance, get_all_questions
 from .bitly import BitlyApi
 from instance.config import HOSTNAME
 
@@ -61,6 +61,17 @@ def get_questions(cls_id):
     except Exception as e:
         return jsonify({'id': cls_id, 'error': str(e.args[0])}), 400
     return jsonify(data), 200
+
+
+@api.route('/v1/questions/all', methods=['GET'])
+def questions_all():
+    """
+    Handle get requests to get all the questions
+    """
+    try:
+        return jsonify(get_all_questions()), 200
+    except Exception as e:
+        return jsonify({'id': '', 'error': str(e.args[0])}), 400
 
 
 @api.route('/v1/questions/delete/<int:cls_id>', methods=['GET'])

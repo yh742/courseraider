@@ -63,6 +63,18 @@ def get_all_performance():
         data['classes'].append(perf)
     return data
 
+
+def get_all_questions():
+    data = {}
+    data['questions'] = []
+    for cls in Class.query.all():
+        ques = get_question(cls.id)
+        if ques is None:
+            break
+        data['questions'].append(ques)
+    return data
+
+
 def get_performance(cls_id):
 
     cls = Class.query.get(cls_id)
