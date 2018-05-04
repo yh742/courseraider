@@ -1,7 +1,7 @@
 company:
   name: CourseRaider
-  logo: logo.jpeg
-product_hmw: How might we use technology to create a better class experience for professors and students.
+  logo: logo.png
+product_hmw: How might we use technology to create a better class experience for professors and students?
 tags:
   - education--edtech
   - Productivity
@@ -40,6 +40,6 @@ assets:
 - title: Sprint 2
   url: https://docs.google.com/presentation/d/1fhfGGHvNen9qWE-3x8EtxMew6I502GjkTYjlFJFseh4/edit?usp=sharing
 - title: Sprint 3
-  url:
+  url: https://docs.google.com/presentation/d/1Re5Mk05o-kq1y1OgrtYv8bvFFyIInhCbQtTqHc7sPLc/edit?usp=sharing
 - title: Final
   url:
