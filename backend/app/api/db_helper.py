@@ -57,7 +57,10 @@ def get_all_performance():
     data = {}
     data['classes'] = []
     for cls in Class.query.all():
-        data['classes'].append(get_performance(cls.id))
+        perf = get_performance(cls.id)
+        if perf is None: 
+            break
+        data['classes'].append(perf)
     return data
 
 def get_performance(cls_id):
@@ -72,6 +75,8 @@ def get_performance(cls_id):
         data[key] = dict()
         if question.widget == 'radio':
             scores = [int(x.score) for x in question.performances]
+            if len(scores) == 0:
+                return None
             avg = sum(scores) / float(len(scores))
             dist = dict(Counter(scores))
             data[key]['scores'] = scores
@@ -95,6 +100,7 @@ def get_question(cls_id):
         return None
     data = dict()
     data['class_id'] = cls_id
+    data['active'] = cls.active
     data['ui_schema'] = {}
     data['form_schema'] = {}
     data['form_schema']['title'] = cls.title

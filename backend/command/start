@@ -1,4 +1,4 @@
 #!/bin/bash
 
 export FLASK_CONFIG=production
-gunicorn --bind 0.0.0.0:5000 --chdir /home/ubuntu/courseraider/backend run:app
+gunicorn --bind 0.0.0.0:5000 --workers=5 --chdir /home/ubuntu/courseraider/backend run:app

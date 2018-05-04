@@ -17,6 +17,7 @@ docs/_build/
 *.log*
 *.pid
 mock/
+restart.sh
 
 # Coverage reports
 htmlcov/
