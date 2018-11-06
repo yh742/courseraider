@@ -10,6 +10,9 @@ A simple web app that the teacher can use to gauge student interests.
 Backend is written in flask.
 
 Frontend is written in react.
+## Demo
+https://drive.google.com/open?id=1yf_uJtnyQMnsF_XCOlw4sKcNDNiKR8hM
+
 ## API Endpoints
 * POST Survey /api/v1/survey/submit/<class_id>/
 * GET Survey /api/v1/survey/<class_id>/
