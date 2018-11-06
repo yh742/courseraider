@@ -11,7 +11,7 @@ Backend is written in flask.
 
 Frontend is written in react.
 ## Demo
-https://drive.google.com/open?id=1yf_uJtnyQMnsF_XCOlw4sKcNDNiKR8hM
+https://drive.google.com/file/d/1yf_uJtnyQMnsF_XCOlw4sKcNDNiKR8hM/view?usp=sharing
 
 ## API Endpoints
 * POST Survey /api/v1/survey/submit/<class_id>/
