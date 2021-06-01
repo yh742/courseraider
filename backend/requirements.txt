@@ -45,7 +45,7 @@ ssh-import-id==5.5
 stevedore==1.28.0
 ufw==0.35
 unattended-upgrades==0.1
-urllib3==1.22
+urllib3==1.26.5
 virtualenv==15.2.0
 virtualenv-clone==0.3.0
 virtualenvwrapper==4.8.2
